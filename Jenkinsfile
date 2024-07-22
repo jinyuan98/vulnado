@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/ScaleSec/vulnado.git'
+                git branch: 'master', url: 'https://github.com/jinyuan98/vulnado.git'
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
     }
     post {
         always {
-            node {
+            script {
                 junit testResults: '**/target/surefire-reports/TEST-*.xml'
                 recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), javaDoc()]
                 recordIssues enabledForFailure: true, tool: checkStyle()
